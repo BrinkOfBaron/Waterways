@@ -2,8 +2,8 @@
 Generate = {}
 
 function Generate:random_seeding()
-	love.math.setRandomSeed(os.time())
-	return love.math.random()
+	love.math.random()
+
 end
 
 function Generate:matrix_init(size)
@@ -11,11 +11,11 @@ function Generate:matrix_init(size)
 	for i=1, size do
 		MAP[i] = {}
 		for z=1, size do
-			MAP[i][z] = love.math.noise(self:random_seeding(), self:random_seeding())	
+			MAP[i][z] = love.math.noise(self:random_seeding(), self:random_seeding(), self:random_seeding())	
 		end
 	end
 
-	return MAP
+	return MAP, size
 end
 
 
