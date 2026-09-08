@@ -1,6 +1,6 @@
 --Main.lua--
 local Generate = require("NoiseGeneration/generate")
-local MATRIX_SIZE = 8 --8*8 matrix--
+local MATRIX_SIZE = 16 --16*16 matrix--
 local GRASS = love.graphics.newImage("assets/grass.png")
 
 local WATER = love.graphics.newImage("assets/water.png")
@@ -28,7 +28,7 @@ text.opacity = 0
 matrix = {}
 
 function window_setup()
-	love.window.setMode(1280, 720)
+	love.window.setMode(1280, 720, {borderless=true})
 	love.window.setTitle("NoiseGeneration")
 	love.graphics.setDefaultFilter("nearest", "nearest")
 end
