@@ -16,7 +16,7 @@ opacity.opacity = 1
 
 function fade_to_black()
 	--Without Canvas Object--
-	flux.to(opacity, 2, {opacity.opacity=0}):ease("quadin")
+	flux.to(opacity, 2, {opacity=0}):ease("quadin")
 end
 
 
