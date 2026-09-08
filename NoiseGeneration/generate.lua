@@ -2,34 +2,29 @@
 Generate = {}
 
 function Generate:random_seeding()
-	love.math.random()
-
+	local baseValue = 1000
+	return baseValue*love.math.random() --Add Ranges?--
 end
 
 function Generate:matrix_init(size)
-	local MAP = {}
+	waterway = {}
 	for i=1, size do
-		MAP[i] = {}
+		waterway[i] = {}
 		for z=1, size do
-			MAP[i][z] = love.math.noise(self:random_seeding(), self:random_seeding(), self:random_seeding())	
+			local choice = love.math.noise(self:random_seeding(), self:random_seeding())	
+			if(choice>=0.5)then
+				choice = 1
+			else
+				choice = 0
+			end
+			waterway[i][z] = choice
 		end
 	end
 
-	return MAP, size
+	return waterway
 end
 
 
 
 
-function debug_print(MAP, size)
-	for i=1, size do
-		print("\n")
-		for z=1, size do
-			print(MAP[i][z])
-		end
-	end
-end
-
-debug_print(Generate:matrix_init(8), 8) --Run as normal lua file--
-
-
+return Generate
