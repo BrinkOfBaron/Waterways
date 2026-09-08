@@ -22,6 +22,10 @@ function window_setup()
 	love.graphics.setDefaultFilter("nearest", "nearest")
 end
 
+function animate_squares()
+	flux.to(SCALE, 1, {SCALEX=1, SCALEY=1}):ease("expoin")
+end
+
 function love.load()
 	
 	window_setup()
@@ -41,6 +45,9 @@ function love.keypressed(key)
 
 	if(key=="x")then
 		matrix.matrix = Generate:matrix_init(MATRIX_SIZE)
+		SCALE.SCALEX = 0
+		SCALE.SCALEY = 0
+		animate_squares()
 	end
 end
 
@@ -64,7 +71,7 @@ function love.draw()
 
 	--Text Underneath--
 	love.graphics.setColor(1,1,1,text.opacity)
-	love.graphics.print(text.text, (MATRIX_SIZE*tile_constant)/2, MATRIX_SIZE*tile_constant+100)
+	love.graphics.print(text.text, (MATRIX_SIZE*tile_constant)/2-8, MATRIX_SIZE*tile_constant+40)
 	love.graphics.setColor(1,1,1,1)
 	camera:detach()
 end
