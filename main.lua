@@ -2,11 +2,18 @@
 local Generate = require("NoiseGeneration/generate")
 local MATRIX_SIZE = 8 --8*8 matrix--
 local GRASS = love.graphics.newImage("assets/grass.png")
+
 local WATER = love.graphics.newImage("assets/water.png")
+
 local flux = require("lib/flux") --Tweening--
 local Camera = require("lib/camera")
 local tile_constant = 16
 local SCALE = {SCALEX = 0, SCALEY = 0}
+
+text = {}
+text.text = "Press X!"
+text.opacity = 0
+
 matrix = {}
 
 function window_setup()
@@ -18,13 +25,13 @@ end
 function love.load()
 	
 	window_setup()
-	camera = Camera((MATRIX_SIZE*tile_constant)/2+16,(MATRIX_SIZE*tile_constant)/2+16)
-	camera:zoom(2)
+	camera = Camera(math.floor((MATRIX_SIZE*tile_constant)/2+16+0.5),(math.floor(MATRIX_SIZE*tile_constant)/2+16+0.5))
+	camera:zoomTo(2)
 	matrix.matrix = Generate:matrix_init(MATRIX_SIZE)
 	
 
 	--Graphical Elements--
-	flux.to(SCALE, 2, {SCALEX=1, SCALEY = 1}):ease("expoin")
+	flux.to(SCALE, 2, {SCALEX=1, SCALEY = 1}):ease("expoin"):after(text, 1, {opacity=1}):ease("expoin")
 end
 
 function love.keypressed(key)
@@ -56,6 +63,8 @@ function love.draw()
 	end
 
 	--Text Underneath--
-	love.graphics.print("Press X!", (MATRIX_SIZE*tile_constant)/2, MATRIX_SIZE*tile_constant+100)
+	love.graphics.setColor(1,1,1,text.opacity)
+	love.graphics.print(text.text, (MATRIX_SIZE*tile_constant)/2, MATRIX_SIZE*tile_constant+100)
+	love.graphics.setColor(1,1,1,1)
 	camera:detach()
 end
