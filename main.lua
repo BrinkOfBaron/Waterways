@@ -10,6 +10,17 @@ local Camera = require("lib/camera")
 local tile_constant = 16
 local SCALE = {SCALEX = 0, SCALEY = 0}
 
+
+opacity = {}
+opacity.opacity = 1
+
+function fade_to_black()
+	--Without Canvas Object--
+	flux.to(opacity, 2, {opacity.opacity=0}):ease("quadin")
+end
+
+
+
 text = {}
 text.text = "Press X!"
 text.opacity = 0
@@ -56,6 +67,8 @@ function love.update(dt)
 end
 
 function love.draw()
+	love.graphics.setColor(1,1,1,opacity.opacity)
+	
 	camera:attach()
 	--drawing the matrix--
 	for i=1, MATRIX_SIZE do
